@@ -98,20 +98,14 @@ The **Q Actor-Critic (QAC)** algorithm evaluates actions using a **Q-function**,
 
 ### **1. Q-Value Estimation (Critic)**
 - The **critic network** estimates the Q-value:  
-  $$
-  Q(s, a) \approx \mathbb{E}[R | s, a]
-  $$
+  $$Q(s, a) \approx \mathbb{E}[R | s, a]$$
 - Updated using **Temporal Difference (TD(0)) Learning**:
-  $$
-  Q(s, a) \leftarrow Q(s, a) + \alpha \left[ r + \gamma \max_{a'} Q(s', a') - Q(s, a) \right]
-  $$
+  $$Q(s, a) \leftarrow Q(s, a) + \alpha \left[ r + \gamma \max_{a'} Q(s', a') - Q(s, a) \right]$$
 
 ### **2. Policy Update (Actor)**
 - The **policy network** selects actions based on observations.
 - The actor’s gradient update is computed using the critic’s Q-value:
-  $$
-  \nabla_{\theta} J(\theta) = \mathbb{E} \left[ \nabla_{\theta} \log \pi_{\theta} (a | s) \cdot Q(s, a) \right]
-  $$
+  $$\nabla_{\theta} J(\theta) = \mathbb{E} \left[ \nabla_{\theta} \log \pi_{\theta} (a | s) \cdot Q(s, a) \right]$$
 - Encourages **high Q-value actions** by maximizing the expected return.
 
 ### **Implementation Details**
