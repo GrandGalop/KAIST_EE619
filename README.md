@@ -35,21 +35,15 @@ Project 3: Implementing the algorithm that you want to implement: Q Actor-Critic
 - Updates one of the two Q-values randomly at each step:
   - If updating **\( Q_1 \)**:
 
-    $$
-    Q_1(s,a) \leftarrow Q_1(s,a) + \alpha \left[ r + \gamma Q_2(s', \arg\max Q_1(s', a')) - Q_1(s,a) \right]
-    $$
+    $$Q_1(s,a) \leftarrow Q_1(s,a) + \alpha \left[ r + \gamma Q_2(s', \arg\max Q_1(s', a')) - Q_1(s,a) \right]$$
 
   - If updating **\( Q_2 \)**:
 
-    $$
-    Q_2(s,a) \leftarrow Q_2(s,a) + \alpha \left[ r + \gamma Q_1(s', \arg\max Q_2(s', a')) - Q_2(s,a) \right]
-    $$
+    $$Q_2(s,a) \leftarrow Q_2(s,a) + \alpha \left[ r + \gamma Q_1(s', \arg\max Q_2(s', a')) - Q_2(s,a) \right]$$
 
 - **Final Q-value** is computed as:
 
-  $$
-  Q(s, a) = Q_1(s, a) + Q_2(s, a)
-  $$
+  $$Q(s, a) = Q_1(s, a) + Q_2(s, a)$$
 
 - **Key Advantage:**  
   - Prevents **overestimation of Q-values** by decoupling the action selection and action evaluation steps.
