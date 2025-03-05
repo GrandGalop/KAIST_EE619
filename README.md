@@ -17,7 +17,7 @@ Project 3: Implementing the algorithm that you want to implement: Q Actor-Critic
 - Implements **ε-greedy policy** to balance exploration and exploitation.
 - Updates Q-values using the **Bellman equation**:
 
-  $$ Q(s,a) \leftarrow Q(s,a) + \alpha \left[ r + \gamma \max_{a'} Q(s', a') - Q(s,a) \right] $$
+  $$Q(s,a) \leftarrow Q(s,a) + \alpha \left[ r + \gamma \max_{a'} Q(s', a') - Q(s,a) \right]$$
 
   where:
   - $\( s \)$ = current state
