@@ -27,8 +27,6 @@ Project 3: Implementing the algorithm that you want to implement: Q Actor-Critic
   - $\( \gamma \)$ = discount factor
   - $\( r \)$ = reward received
 
----
-
 ### **Double Q-learning**
 - A variant of Q-learning that reduces **overestimation bias** in value estimation.
 - Maintains **two Q-tables**: \( Q_1 \) and \( Q_2 \).
@@ -72,8 +70,6 @@ Project 3: Implementing the algorithm that you want to implement: Q Actor-Critic
    
      $$Q(s,a) \leftarrow Q(s,a) + \alpha \left[ r + \gamma \max_{a'} Q_{\text{target}}(s', a') - Q(s,a) \right]$$
 
----
-
 ### **REINFORCE (Policy Gradient Method)**
 - A **policy-based** reinforcement learning algorithm.
 - Directly learns a **stochastic policy** instead of estimating Q-values.
@@ -96,3 +92,41 @@ Project 3: Implementing the algorithm that you want to implement: Q Actor-Critic
    - Uses **full episode rewards** to update weights.
    - High variance but unbiased updates.
 
+## **Project3**
+Implementing the **Q Actor-Critic (QAC)** algorithm, which combines value-based Q-learning with policy-based Actor-Critic reinforcement learning. The goal is to efficiently train an agent using **both policy gradients and Q-value estimates**.
+The **Q Actor-Critic (QAC)** algorithm evaluates actions using a **Q-function**, representing the expected return when the agent takes action \( a \) in state \( s \). The policy network updates its parameters via **policy gradients**, while the critic network updates Q-values using **TD(0) learning**.
+
+### **1. Q-Value Estimation (Critic)**
+- The **critic network** estimates the Q-value:  
+  $$
+  Q(s, a) \approx \mathbb{E}[R | s, a]
+  $$
+- Updated using **Temporal Difference (TD(0)) Learning**:
+  $$
+  Q(s, a) \leftarrow Q(s, a) + \alpha \left[ r + \gamma \max_{a'} Q(s', a') - Q(s, a) \right]
+  $$
+
+### **2. Policy Update (Actor)**
+- The **policy network** selects actions based on observations.
+- The actor’s gradient update is computed using the critic’s Q-value:
+  $$
+  \nabla_{\theta} J(\theta) = \mathbb{E} \left[ \nabla_{\theta} \log \pi_{\theta} (a | s) \cdot Q(s, a) \right]
+  $$
+- Encourages **high Q-value actions** by maximizing the expected return.
+
+### **Implementation Details**
+#### **1. Policy & Critic Networks**
+- The model consists of **two networks**:
+  - **Policy Network**: Outputs an action distribution.
+  - **Critic Network**: Estimates Q-values.
+
+- **Structure**:
+  - **Input**: 24-dimensional observation space.
+  - **Output**: 6-dimensional action space.
+  - **Hidden layers**: 3-layer MLP (Multi-Layer Perceptron).
+
+#### **2. Training Process**
+- **Step 1**: The policy network takes an **observation (state)** and outputs an **action**.
+- **Step 2**: The action is executed, and the environment returns a **reward**.
+- **Step 3**: The critic network updates **Q-values** using **TD(0)** learning.
+- **Step 4**: The policy network updates based on **actor-critic gradients**.
